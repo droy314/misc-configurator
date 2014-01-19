@@ -85,20 +85,25 @@ public class Configurator {
 			Object value = null;
 			if (String.class.equals(returnType)) {
 				value = provider.getString(key);
-			} else if (Integer.class.equals(returnType)) {
+			} else if (Integer.class.equals(returnType)
+					|| int.class.equals(returnType)) {
 				value = provider.getInteger(key);
-			} else if (Long.class.equals(returnType)) {
+			} else if (Long.class.equals(returnType)
+					|| long.class.equals(returnType)) {
 				value = provider.getLong(key);
-			} else if (Float.class.equals(returnType)) {
+			} else if (Float.class.equals(returnType)
+					|| float.class.equals(returnType)) {
 				value = provider.getFloat(key);
-			} else if (Double.class.equals(returnType)) {
+			} else if (Double.class.equals(returnType)
+					|| double.class.equals(returnType)) {
 				value = provider.getDouble(key);
-			} else if (Boolean.class.equals(returnType)) {
+			} else if (Boolean.class.equals(returnType)
+					|| boolean.class.equals(returnType)) {
 				value = provider.getBoolean(key);
 			} else {
 				throw new UnsupportedOperationException(
-						"No conversion available to get value as "
-								+ returnType.getCanonicalName());
+						"No conversion available to get value [" + key
+								+ "] as " + returnType.getCanonicalName());
 			}
 			return value;
 		}

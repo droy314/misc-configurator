@@ -29,4 +29,10 @@ public class ConfiguratorTest {
 		assertEquals((Integer) 1, configuration.getIntegerValue());
 	}
 	
+	@Test
+	public void testPrimitiveRetrieve() {
+		properties.put("p.int.value", "1");
+		assertEquals(1, configuration.getIntValue());
+	}
+	
 }

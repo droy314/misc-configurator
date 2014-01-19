@@ -42,4 +42,11 @@ public interface Configuration {
 	@Bind("long.value")
 	Long getLongValue();
 	
+	/**
+	 * Should return the value configured for key "p.int.value"
+	 * @return
+	 */
+	@Bind("p.int.value")
+	int getIntValue();
+	
 }
