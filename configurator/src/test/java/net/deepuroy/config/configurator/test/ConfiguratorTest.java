@@ -20,7 +20,7 @@ public class ConfiguratorTest {
 	Configuration configuration = configurator.get(Configuration.class);
 
 	@Test
-	public void testDirectRetrieves() {
+	public void testWrapperRetrieves() {
 		// Late bound configuration.
 		properties.put("string.value", "Hello!");
 		properties.put("integer.value", "1");
@@ -30,9 +30,21 @@ public class ConfiguratorTest {
 	}
 	
 	@Test
+	public void testNullWrapperRetrieves() {
+		assertNull(configuration.getStringValue());
+		assertNull(configuration.getIntegerValue());
+	}
+	
+	@Test
 	public void testPrimitiveRetrieve() {
 		properties.put("p.int.value", "1");
 		assertEquals(1, configuration.getIntValue());
+	}
+	
+	
+	@Test
+	public void testNullPrimitiveRetrieve() {
+		assertEquals(0, configuration.getIntValue());
 	}
 	
 }

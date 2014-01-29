@@ -83,29 +83,39 @@ public class Configurator {
 
 		private Object getValue(String key, Class<?> returnType) {
 			Object value = null;
+			//TODO: Exterminate ugly if-else-if ladder
 			if (String.class.equals(returnType)) {
 				value = provider.getString(key);
-			} else if (Integer.class.equals(returnType)
-					|| int.class.equals(returnType)) {
+			} else if (Integer.class.equals(returnType)) {
 				value = provider.getInteger(key);
-			} else if (Long.class.equals(returnType)
-					|| long.class.equals(returnType)) {
+			} else if (Long.class.equals(returnType)) {
 				value = provider.getLong(key);
-			} else if (Float.class.equals(returnType)
-					|| float.class.equals(returnType)) {
+			} else if (Float.class.equals(returnType)) {
 				value = provider.getFloat(key);
-			} else if (Double.class.equals(returnType)
-					|| double.class.equals(returnType)) {
+			} else if (Double.class.equals(returnType)) {
 				value = provider.getDouble(key);
-			} else if (Boolean.class.equals(returnType)
-					|| boolean.class.equals(returnType)) {
+			} else if (Boolean.class.equals(returnType)) {
 				value = provider.getBoolean(key);
+			} else if (int.class.equals(returnType)) {
+				value = nullSafe(provider.getInteger(key), 0);
+			} else if (long.class.equals(returnType)) {
+				value = nullSafe(provider.getLong(key), 0L);
+			} else if (float.class.equals(returnType)) {
+				value = nullSafe(provider.getFloat(key), 0f);
+			} else if (double.class.equals(returnType)) {
+				value = nullSafe(provider.getDouble(key), 0.0);
+			} else if (boolean.class.equals(returnType)) {
+				value = nullSafe(provider.getBoolean(key), Boolean.FALSE);
 			} else {
 				throw new UnsupportedOperationException(
 						"No conversion available to get value [" + key
 								+ "] as " + returnType.getCanonicalName());
 			}
 			return value;
+		}
+
+		private <T> T nullSafe(T value, T defValue) {
+			return (value == null) ? defValue : value;
 		}
 
 		private String getBindKey(Method method) {
